@@ -112,8 +112,8 @@ def load_clean(file):
     df['EDUCATION'] = df['EDUCATION'].apply(lambda x: x if x <= 4 else 4)
     return df
 
-train_file = "files/input/train_data.csv"
-test_file = "files/input/test_data.csv"
+train_file = "files/input/train_default_of_credit_card_clients.csv"
+test_file = "files/input/test_default_of_credit_card_clients.csv"
 df_train = load_clean(train_file)
 df_test = load_clean(test_file)
 
@@ -164,7 +164,7 @@ def compute_metrics(model, x, y, dataset_type):
 metrics_train = compute_metrics(pipeline, x_train, y_train, 'train')
 metrics_test = compute_metrics(pipeline, x_test, y_test, 'test')
 
-# Calcular matrices de confusión
+# Calcular matrices
 def confusion(model, x, y, dataset_type):
     y_pred = model.predict(x)
     cm = confusion_matrix(y, y_pred)
@@ -179,7 +179,7 @@ def confusion(model, x, y, dataset_type):
 cm_train = confusion(pipeline, x_train, y_train, 'train')
 cm_test = confusion(pipeline, x_test, y_test, 'test')
 
-# Guardar métricas y matrices de confusión
+# Guardar métricas y matrices
 metrics_path = "files/output/metrics.json"
 with open(metrics_path, 'w') as f:
     for item in [metrics_train, metrics_test, cm_train, cm_test]:
